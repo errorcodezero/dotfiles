@@ -14,6 +14,8 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+-- Multimonitor Support
+local xrandr = require("xrandr")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -248,7 +250,8 @@ globalkeys = gears.table.join(
         function ()
             awful.client.focus.byidx(-1)
         end,
-        {description = "focus previous by index", group = "client"}
+        {description = "focus previous by index", group = "client"},
+    awful.key({ modkey, }, "h", function() xrandr.xrandr() end )
     ),
     awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
@@ -312,7 +315,7 @@ globalkeys = gears.table.join(
 
     -- Prompt
     awful.key({ modkey }, "r", function ()
-	awful.util.spawn("rofi -show run")
+	awful.util.spawn("rofi -show drun")
     end,
               {description = "run prompt", group = "launcher"}),
 
@@ -567,4 +570,3 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- Autostart applications
 awful.spawn("nitrogen --restore");
-awful.spawn("picom");
