@@ -11,7 +11,9 @@ return {
         -- Autocompletion
         {'hrsh7th/nvim-cmp'}, -- Required
         {'hrsh7th/cmp-nvim-lsp'}, -- Required
-        {'L3MON4D3/LuaSnip'} -- Required
+        {'L3MON4D3/LuaSnip'}, -- Required
+	-- Progress bar
+	{'j-hui/fidget.nvim', branch = 'legacy'}
     },
     config = function()
         local lsp = require("lsp-zero")
