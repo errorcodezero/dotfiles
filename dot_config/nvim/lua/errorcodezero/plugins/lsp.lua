@@ -13,7 +13,9 @@ return {
         {'hrsh7th/cmp-nvim-lsp'}, -- Required
         {'L3MON4D3/LuaSnip'}, -- Required
 	-- Progress bar
-	{'j-hui/fidget.nvim', branch = 'legacy'}
+	{'j-hui/fidget.nvim', branch = 'legacy', config = function ()
+		require("fidget").setup()
+	end}
     },
     config = function()
         local lsp = require("lsp-zero")
