@@ -6,5 +6,5 @@ A comfortable set of dotfiles which I use.
 
 # How to use
 1. Install [chezmoi](https://www.chezmoi.io/)
-2. Open a terminal and run `chezmoi init https://github.com/yeetsquad747/dotfiles.git`
+2. Open a terminal and run `chezmoi init errorcodezero`
 3. Then, run `chezmoi apply -v` and allow it to apply the changes you like and want.
