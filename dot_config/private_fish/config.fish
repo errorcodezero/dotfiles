@@ -1,3 +1,5 @@
 if status is-interactive
-    # Commands to run in interactive sessions can go here
+	alias chz="chezmoi"
+	alias g="git"
+	alias t="tmux"
 end
