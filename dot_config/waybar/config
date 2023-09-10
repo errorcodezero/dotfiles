@@ -14,8 +14,7 @@
 		"cpu",
 		"battery",
 		"disk",
-		"tray",
-        "wireplumber"
+        	"wireplumber"
 	],
 
 	"clock#1": {
