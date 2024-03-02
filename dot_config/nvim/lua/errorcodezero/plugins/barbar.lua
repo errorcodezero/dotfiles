@@ -5,7 +5,7 @@
       'nvim-tree/nvim-web-devicons',
     },
     init = function()
-        vim.g.barbar_auto_setup = false 
+        vim.g.barbar_auto_setup = false
         local map = vim.api.nvim_set_keymap
         local opts = { noremap = true, silent = true }
 
