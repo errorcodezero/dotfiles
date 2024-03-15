@@ -46,5 +46,5 @@ SETUVAR fish_pager_color_selected_background:\x1d
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/home/errorcodezero/\x2espicetify
+SETUVAR fish_user_paths:/home/errorcodezero/\x2ecargo/bin\x1e/home/errorcodezero/\x2espicetify
 SETUVAR nvm_default_version:lts
