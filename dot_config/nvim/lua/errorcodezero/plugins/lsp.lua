@@ -8,6 +8,22 @@ return {
       -- Disable automatic setup, we are doing it manually
       vim.g.lsp_zero_extend_cmp = 0
       vim.g.lsp_zero_extend_lspconfig = 0
+
+      local lsp_zero = require('lsp-zero')
+
+      lsp_zero.format_on_save({
+          format_opts = {
+            async = false,
+            timeout_ms = 10000,
+          },
+          servers = {
+            ['tsserver'] = {'javascript', 'typescript'},
+            ['rust_analyzer'] = {'rust'},
+            ['jdtls'] = {'java'},
+            ['astro'] = {'astro'}
+          }
+      })
+
     end,
   },
   {
