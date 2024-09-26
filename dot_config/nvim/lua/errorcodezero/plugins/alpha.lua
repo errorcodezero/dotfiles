@@ -11,6 +11,9 @@ return {
             "███████╗██║░░██║██║░░██║╚█████╔╝██║░░██║╚█████╔╝╚█████╔╝██████╔╝███████╗╚█████╔╝",
             "╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝░╚════╝░░╚════╝░╚═════╝░╚══════╝░╚════╝░",
         }
+	dashboard.section.buttons.val = {
+	   dashboard.button("1", "Open File", ":Telescope find_files")
+	}
         require'alpha'.setup(dashboard.config)
     end
 }

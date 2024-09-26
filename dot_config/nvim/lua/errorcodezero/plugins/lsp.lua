@@ -1,97 +1,82 @@
 return {
-  {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v3.x',
-    lazy = true,
-    config = false,
-    init = function()
-      -- Disable automatic setup, we are doing it manually
-      vim.g.lsp_zero_extend_cmp = 0
-      vim.g.lsp_zero_extend_lspconfig = 0
+	"williamboman/mason.nvim",
+	dependencies = {
+		-- LSP
+		"williamboman/mason-lspconfig.nvim",
+		"neovim/nvim-lspconfig",
 
-      local lsp_zero = require('lsp-zero')
+		-- DAP
+		'jay-babu/mason-nvim-dap.nvim',
+		'mfussenegger/nvim-dap',
+		'rcarriga/nvim-dap-ui',
+		'mfussenegger/nvim-dap',
+		'nvim-neotest/nvim-nio',
 
-      lsp_zero.format_on_save({
-          format_opts = {
-            async = false,
-            timeout_ms = 10000,
-          },
-          servers = {
-            ['tsserver'] = {'javascript', 'typescript'},
-            ['rust_analyzer'] = {'rust'},
-            ['jdtls'] = {'java'},
-            ['astro'] = {'astro'}
-          }
-      })
+		-- Linting
+		'mfussenegger/nvim-lint',
+		'rshkarin/mason-nvim-lint',
+	},
+	init = function()
+		require("mason").setup()
+		require("mason-lspconfig").setup({
+			ensure_installed = { "lua_ls", "ts_ls", "tailwindcss", "jdtls" }
+		})
+		require("mason-nvim-dap").setup({
+			ensure_installed = { "python", "chrome", "js" },
+			automatic_installation = true
+		})
 
-    end,
-  },
-  {
-    'williamboman/mason.nvim',
-    lazy = false,
-    config = true,
-  },
+		local on_attach = function(_, _)
+			vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, {})
+			vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, {})
+			-- vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, {})
 
-  -- Autocompletion
-  {
-    'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
-    dependencies = {
-      {'L3MON4D3/LuaSnip'},
-    },
-    config = function()
-      -- Here is where you configure the autocompletion settings.
-      local lsp_zero = require('lsp-zero')
-      lsp_zero.extend_cmp()
+			vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
+			vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, {})
+			vim.keymap.set('n', 'gr', require("telescope.builtin").lsp_references, {})
+			vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
 
-      -- And you can configure cmp even more, if you want to.
-      local cmp = require('cmp')
-      local cmp_action = lsp_zero.cmp_action()
+			vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {})
+			vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, {})
+			vim.keymap.set('n', ']d', vim.diagnostic.goto_next, {})
+			vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, {})
+		end
 
-      cmp.setup({
-        formatting = lsp_zero.cmp_format(),
-        mapping = cmp.mapping.preset.insert({
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-d>'] = cmp.mapping.scroll_docs(4),
-          ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-          ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-        })
-      })
-    end
-  },
+		local on_attach_format = function(_, _)
+			vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, {})
+			vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, {})
+			vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, {})
 
-  -- LSP
-  {
-    'neovim/nvim-lspconfig',
-    cmd = {'LspInfo', 'LspInstall', 'LspStart'},
-    event = {'BufReadPre', 'BufNewFile'},
-    dependencies = {
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'williamboman/mason-lspconfig.nvim'},
-    },
-    config = function()
-      -- This is where all the LSP shenanigans will live
-      local lsp_zero = require('lsp-zero')
-      lsp_zero.extend_lspconfig()
+			vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
+			vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, {})
+			vim.keymap.set('n', 'gr', require("telescope.builtin").lsp_references, {})
+			vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
 
-      lsp_zero.on_attach(function(client, bufnr)
-        -- see :help lsp-zero-keybindings
-        -- to learn the available actions
-        lsp_zero.default_keymaps({buffer = bufnr})
-      end)
+			vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {})
+			vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, {})
+			vim.keymap.set('n', ']d', vim.diagnostic.goto_next, {})
+			vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, {})
+		end
 
-      require('mason-lspconfig').setup({
-        ensure_installed = {},
-        handlers = {
-          lsp_zero.default_setup,
-          lua_ls = function()
-            -- (Optional) Configure lua language server for neovim
-            local lua_opts = lsp_zero.nvim_lua_ls()
-            require('lspconfig').lua_ls.setup(lua_opts)
-          end,
-        }
-      })
-    end
-  }
+		-- Config for each LSP
+		require("lspconfig").lua_ls.setup {
+			on_attach = on_attach_format,
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = { 'vim' }
+					}
+				}
+			}
+		}
+		require("lspconfig").ts_ls.setup {
+			on_attach = on_attach,
+		}
+		require("lspconfig").tailwindcss.setup {
+			on_attach = on_attach,
+		}
+		require("lspconfig").jdtls.setup {
+			on_attach = on_attach_format,
+		}
+	end
 }

@@ -1,4 +1,3 @@
--- put here since it has to be before lazy is loaded
 vim.g.mapleader = " "
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -16,4 +15,3 @@ vim.opt.rtp:prepend(lazypath)
 
 require("errorcodezero.plugins-setup")
 require("errorcodezero.settings")
-require("errorcodezero.remaps")
