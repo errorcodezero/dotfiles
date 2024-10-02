@@ -11,3 +11,5 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.termguicolors = true
 vim.keymap.set('n', '<leader>w', ":w<enter>")
+vim.keymap.set('n', '<leader>q', ":q!<enter>")
+vim.opt.clipboard = "unnamedplus"
