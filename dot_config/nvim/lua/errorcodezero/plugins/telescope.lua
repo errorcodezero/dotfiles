@@ -5,7 +5,7 @@ return {
 	config = function()
 		require("telescope").setup {
 			extensions = {
-				file_browser = {
+				file_browser ={
 					theme = "ivy",
 					hijack_netrw = true,
 				},

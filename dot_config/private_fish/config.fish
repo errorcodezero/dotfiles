@@ -5,7 +5,9 @@ if status is-interactive
     alias s="kitty +kitten ssh"
     alias lt="nvim leetcode.nvim"
     alias ls="lsd -l"
+	alias nv="nvim"
     alias fr="grep -rl $OLDTEXT . | xargs sed -i 's/$OLDTEXT/$NEWTEXT/g'"
+    alias spicetify-fix="sudo chmod a+wr /var/lib/flatpak/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify && sudo chmod a+wr -R /var/lib/flatpak/app/com.spotify.Client/x86_64/stable/active/files/extra/share/spotify/Apps"
     function fish_prompt
         powerline $pipestatus
     end
