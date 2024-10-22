@@ -11,6 +11,7 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.termguicolors = true
 vim.opt.clipboard = "unnamedplus"
+vim.opt.signcolumn = "yes"
 
 local lsp_formatting = function(bufnr)
     vim.lsp.buf.format({
@@ -31,6 +32,7 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, {})
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {})
 vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, {})
+vim.keymap.set("n", "<leader>cx", require("telescope.builtin").colorscheme, {})
 vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, {})
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, {})
