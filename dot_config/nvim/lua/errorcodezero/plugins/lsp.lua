@@ -9,7 +9,7 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "ts_ls", "html", "cssls", "astro", "eslint", "pylsp", "jdtls", "denols", "svelte", "tailwindcss" },
+				ensure_installed = { "lua_ls", "ts_ls", "html", "cssls", "astro", "eslint", "pylsp", "jdtls", "denols", "svelte", "tailwindcss", "rust_analyzer" },
 			})
 		end,
 	},
@@ -61,6 +61,9 @@ return {
 			lspconfig.denols.setup({
 				capabilities = capabilities,
 				root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+			})
+			lspconfig.rust_analyzer.setup({
+				capabilities = capabilities,
 			})
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
