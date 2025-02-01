@@ -1,0 +1,1 @@
+source "/home/errorcodezero/.deno/env.fish"
